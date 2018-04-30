@@ -3,7 +3,7 @@
     <img src="./assets/logo.png">
     <List :recipe='recipe'> </List>
     <CreateIngredient v-on:create-ingredient="createIngredient"/>
-    <List :buylist='buylist'> </List>
+    <Buylist :buylist='buylist'> </Buylist>
 
   </div>
 </template>
@@ -13,6 +13,7 @@ import HelloWorld from './components/HelloWorld'
 import CreateIngredient from './components/CreateIngredient'
 import Ingredient from './components/Ingredient'
 import List from './components/List'
+import Buylist from './components/Buylist'
 
 export default {
   name: 'App',
@@ -20,6 +21,7 @@ export default {
     HelloWorld,
     CreateIngredient,
     Ingredient,
+    Buylist,
     List
   },
   data() {
