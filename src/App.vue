@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <HelloWorld/>
+    <List :recipe='recipe'> </List>
     <CreateIngredient v-on:create-ingredient="createIngredient"/>
+    <List :buylist='buylist'> </List>
+
   </div>
 </template>
 
@@ -22,13 +24,9 @@ export default {
   },
   data() {
     return {
-      recipe: [{
-
-      }],
-      buylist: [{
-
-      }]
-    }
+      recipe: [],
+      buylist: []
+    };
   },
   methods: {
     createIngredient(newIngredient) {
@@ -38,6 +36,7 @@ export default {
       else {
         this.recipe.push(newIngredient);
       }
+      console.log('new: ' + newIngredient.buylist);
     }
   }
 }

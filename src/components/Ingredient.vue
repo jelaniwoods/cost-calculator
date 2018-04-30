@@ -1,18 +1,19 @@
 <template lang="html">
   <div class="ingredient">
-      
+      <h1>{{ingredient.name}}</h1>
+      <p>{{ingredient.size}}oz</p>
+      <p v-if='ingredient.buylist'>${{ingredient.price}}</p>
   </div>
 </template>
 <script>
 export default {
-  data () {
-    return {
-        name: "",
-        size: 0,
-        price: 0
-    }
-  },
-  methods: {
+    props: ['ingredient'],
+    data () {
+        return {
+        
+        };
+    },
+    methods: {
       setName(newName) {
           this.name = newName; 
       },
@@ -28,6 +29,13 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
+    .ingredient h1, .ingredient p{
+        display: inline-block;
+        padding-right: 2em;
+    }
+    .ingredient {
+        color: aliceblue;
+        background: #1e1e1e;
+    }
 </style>
 

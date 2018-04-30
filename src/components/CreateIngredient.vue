@@ -24,8 +24,8 @@ export default {
   data () {
     return {
         name: "",
-        size: 0,
-        price: 0,
+        size: null,
+        price: null,
         buylist: false
     }
   },
