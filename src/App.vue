@@ -4,7 +4,7 @@
     <List :recipe='recipe'> </List>
     <CreateIngredient v-on:create-ingredient="createIngredient"/>
     <Buylist :buylist='buylist'> </Buylist>
-
+    <Converter />
   </div>
 </template>
 
@@ -12,6 +12,7 @@
 import HelloWorld from './components/HelloWorld'
 import CreateIngredient from './components/CreateIngredient'
 import Ingredient from './components/Ingredient'
+import Converter from './components/Converter'
 import List from './components/List'
 import Buylist from './components/Buylist'
 
@@ -21,6 +22,7 @@ export default {
     HelloWorld,
     CreateIngredient,
     Ingredient,
+    Converter,
     Buylist,
     List
   },
