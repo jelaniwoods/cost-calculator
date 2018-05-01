@@ -4,8 +4,14 @@
         <label>Name</label>
         <input v-model="name" type='text'>
         <br/>
-        <label>Size (in oz)</label>
+        <label>Size (Select Units)</label>
         <input v-model="size" type='text'>
+        <select v-model="unit">
+            <option value="l">liter</option>
+            <option value="ml">ml</option>
+            <option value="kg">kg</option>
+            <option value="g">g</option>
+        </select>
         <br/>
         <label>Price</label>
         <input v-model="price" type='text'>
@@ -25,6 +31,7 @@ export default {
     return {
         name: "",
         size: null,
+        unit: null,
         price: null,
         buylist: false
     }
@@ -34,26 +41,32 @@ export default {
       if (this.name.length > 0 && this.size > 0) {
         const name = this.name;
         const size = this.size;
+        const unit = this.unit;
         const price = this.price;
         const buylist = this.buylist;
         if (buylist) {
             this.$emit('create-ingredient', {
               name: this.name,
               size: this.size,
+              unit: this.unit,
               price: this.price,
+              edit: false,
               buylist: true
             });
         }
         else {
             this.$emit('create-ingredient', {
               name: this.name,
+              unit: this.unit,
               size: this.size,
+              edit: false,
               price: this.price
             });
         }
-        this.name = '';
-        this.size = 0;
-        this.price = 0;
+        this.name = null;
+        this.size = null;
+        this.unit = null;
+        this.price = null;
         this.buylist = false;
       } 
     } 

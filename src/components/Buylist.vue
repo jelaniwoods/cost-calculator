@@ -6,8 +6,8 @@
             </li>
         </ul>
         <div>
-            <button @click='calc(buylist)'>calc {{this.sum}}</button>
-            <div v-if='this.sum > 0'> {{this.sum}}</div>
+            <button @click='calc(buylist)'>calc </button>
+            <div v-if='this.sum > 0'> ${{this.sum}}</div>
         </div>
     </div>
 </template>
@@ -31,15 +31,6 @@ export default {
           }
           this.sum = total;
           console.log(total + ' aaa00');
-      }
-  },
-  computed: {
-      total(buylist) {
-          let total = 0;
-          for (let i = 0; i < buylist.length; i++) {
-            total += parseInt(buylist[i].price);
-          }
-          this.sum = total;          
       }
   }
 }
