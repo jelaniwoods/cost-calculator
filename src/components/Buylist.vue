@@ -90,6 +90,6 @@ export default {
         width: 300px;
         margin: 0 auto;
         background-color: #999;
-        display: inline-block;
+        list-style: none;
     }
 </style>

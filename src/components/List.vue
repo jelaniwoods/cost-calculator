@@ -84,13 +84,13 @@ export default {
   li {
    width: 300px;
    margin: 0 auto;
+   list-style: none;
   }
   .ingredient {
    background-color: #1e1e1e;
    color: aliceblue; 
   }
   .ingredient li {
-    list-style-type: none;
     text-decoration: none;
   }
 </style>
