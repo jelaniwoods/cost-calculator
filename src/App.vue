@@ -5,6 +5,7 @@
     <CreateIngredient v-on:create-ingredient="createIngredient"/>
     <Buylist :buylist='buylist'> </Buylist>
     <Converter />
+    <button @click='calcRatio(recipe, buylist)'>Servings</button>
   </div>
 </template>
 
@@ -41,6 +42,32 @@ export default {
         this.recipe.push(newIngredient);
       }
       console.log('new: ' + newIngredient.buylist);
+    },
+    calcRatio(recipe, buylist) {
+      /**
+      take each matching ingredient from both lists
+        divide buylist one from recipe one to get 
+          how many servings of recipe can be made w/ that ingredient.
+        then take the floor of all ratios to find most you can make w/ that buylist
+
+        later can make more precise w/ fractions and returning each individual 
+          ingredient ratios:
+            x amount of eggs can make y amount of recipe                                                      
+            b amount of flour can make c amount of recipe
+       */
+      console.log(recipe.length);
+      let newlist = {};
+      let temp = 0;
+      for (let key in recipe) {
+        if(recipe.hasOwnProperty(key)) {
+          console.log(key + '- ' + recipe[key].name );
+          temp = buylist[key].size / recipe[key].size;
+          newlist[key] = {
+            name: recipe[key].name,
+            size: temp,
+          }
+        }
+      }
     }
   }
 }
