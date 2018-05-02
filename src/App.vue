@@ -1,21 +1,33 @@
 <template>
+    <!-- <img src="./assets/logo.png"> -->
   <div id="app">
-    <img src="./assets/logo.png">
-    <List :recipe='recipe' v-on:send-to-buy="sendToBuy"> </List>
-    <CreateIngredient v-on:create-ingredient="createIngredient"/>
-    <Buylist :buylist='buylist'> </Buylist>
-    <Converter />
-    <button @click='calcRatio(recipe, buylist)'>Servings</button>
-    <div v-if="reaveal">
-      <div v-for="ingredient in this.ratios" :key="ingredient.name">
-        <p>
-          You have enough {{ingredient.name}} to make {{ingredient.ratio}} amount of recipe.
-        </p>
+    <div class="input">
+      <div class="title">
+        <h1>Cost</h1>
+        <h1>Calculator</h1>
+      </div>
+      <CreateIngredient class='create' v-on:create-ingredient="createIngredient"/>
+    </div>
+    <div class="recipe">
+      <h2>Recipe</h2>
+      <List :recipe='recipe' v-on:send-to-buy="sendToBuy"> </List>
+    </div>
+    <div class="buylist">
+      <h2>Buy List</h2>
+      <Buylist :buylist='buylist'> </Buylist>
+      <button @click='calcRatio(recipe, buylist)'>Servings</button>
+      <div v-if="reaveal">
+        <h4>You have enough ingredients to make at most {{this.min}} recipe.</h4>
+        <div v-for="ingredient in this.ratios" :key="ingredient.name">
+          <p>
+            You have enough {{ingredient.name}} to make {{ingredient.ratio}} amount of recipe.
+          </p>
+        </div>
       </div>
     </div>
+    <!-- <Converter /> -->
   </div>
 </template>
-
 <script>
 import HelloWorld from './components/HelloWorld'
 import CreateIngredient from './components/CreateIngredient'
@@ -39,6 +51,7 @@ export default {
       recipe: [],
       buylist: [],
       ratios: [],
+      min: null,
       reaveal: false
     };
   },
@@ -62,47 +75,49 @@ export default {
     calcRatio (recipe, buylist) {
       this.reaveal = true
       this.ratios = []
+      let temp_arr = []
       for (let i = 0; i < recipe.length; i++) {
         let temp = {}
         temp.name = buylist[i].name
         temp.ratio = buylist[i].size / recipe[i].size;
         this.ratios.push(temp)
+        temp_arr.push(temp.ratio)
       }
-      /**
-      take each matching ingredient from both lists
-        divide buylist one from recipe one to get 
-          how many servings of recipe can be made w/ that ingredient.
-        then take the floor of all ratios to find most you can make w/ that buylist
-
-        later can make more precise w/ fractions and returning each individual 
-          ingredient ratios:
-            x amount of eggs can make y amount of recipe                                                      
-            b amount of flour can make c amount of recipe
-       */
-      console.log(recipe.length)
-      let newlist = {}
-      let temp = 0
-      for (let key in recipe) {
-        if (recipe.hasOwnProperty(key)) {
-          console.log(key + '- ' + recipe[key].name)
-          temp = buylist[key].size / recipe[key].size;
-          newlist[key] = {
-            name: recipe[key].name,
-            size: temp
-          }
-        }
-      }
+      this.min = parseFloat(Math.round(Math.min(...temp_arr) * 100) / 100).toFixed(2)
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
+
+  .title {
+    background-color: azure;
+    grid-row: 1;
+  }
+  .create {
+    background-color: slategray;
+    grid-row: 2;
+  }
+  .input {
+    background-color: #fff;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+  }
+  .recipe {
+    background-color: #fff;
+  }
+  .buylist {
+    background-color: #fff;
+  }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  height: 80vh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* grid-template-rows: repeat(3, 1fr); */
   color: #2c3e50;
   margin-top: 60px;
 }

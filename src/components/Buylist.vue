@@ -1,17 +1,17 @@
 <template lang="html">
     <div class="list" v-if='buylist.length'>
         <ul>
-            <li v-for="(ingredient, index) in buylist" :key="ingredient.name" @click="enableEdit(index)" @blur="disableEdit(index)">
+            <li v-for="(ingredient, index) in buylist" :key="ingredient.name" @click="enableEdit(index)">
                 <div class="ingredient">
                 <span v-if="!ingredient.edit">
                     {{ingredient.name}}
                 </span>
-                <input v-if="ingredient.edit" v-model="ingredient.name" >
+                <input v-if="ingredient.edit" v-model="ingredient.name" @blur="disableEdit(index)">
                 <p class="size">
                     <span v-if="!ingredient.edit"> 
                         {{ingredient.size}} {{ingredient.unit}} 
                     </span>
-                    <input v-if="ingredient.edit" v-model="ingredient.size" @keyup.enter="disableEdit(index)" @blur="disableEdit(index)"> 
+                    <input v-if="ingredient.edit" v-model="ingredient.size"  @blur="disableEdit(index)"> 
                     <select v-if="ingredient.edit" v-model="ingredient.unit" @blur="disableEdit(index)">
                         <option value="l">liter</option>
                         <option value="ml">ml</option>
@@ -23,7 +23,7 @@
                     <span v-if="!ingredient.edit"> 
                         ${{ingredient.price}}
                     </span>
-                    <input v-if="ingredient.edit" v-model="ingredient.price" >
+                    <input v-if="ingredient.edit" v-model="ingredient.price" @blur="disableEdit(index)">
                 </p>
                 <button @click="deleteIngredient(index)">X</button>
                 </div>
