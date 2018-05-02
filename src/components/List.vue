@@ -70,7 +70,8 @@ export default {
           size: this.recipe[i].size,
           unit: this.recipe[i].unit,
           edit: this.recipe[i].edit,
-          price: this.recipe[i].price
+          price: this.recipe[i].price,
+          buylist: true 
         }
         console.log(dup[0].name + ' xxx ' + this.recipe[0].name);
       }

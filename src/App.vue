@@ -47,7 +47,7 @@ export default {
       console.log(dup[0].name + ' - ');
       this.buylist = [];
       for (let i = 0; i < dup.length; i++) {
-        console.log(dup[i].name + ' - ');
+        console.log(dup[i].name + ' - ' +dup[i].price);
         this.buylist.push(dup[i]);
       }
     },
