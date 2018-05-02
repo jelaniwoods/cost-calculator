@@ -33,7 +33,7 @@
           </li>
         </ul>
       </div>
-
+    <button v-if="recipe.length" @click="sendToBuy">Duplicate in Buy</button>
   </div>
 </template>
 <script>
@@ -48,6 +48,11 @@ export default {
     }
   },
   methods: {
+    /** make a way to take ingredient directly from recipe and duplicate 
+    it to the buylist, minus price. 
+      either make all values in the create form or make duplicate
+      in buylist but in edit state focused on price
+     */
     enableEdit(index) {
       this.recipe[index].edit = true;
     },
@@ -56,6 +61,20 @@ export default {
     },
     deleteIngredient(index) {
       this.recipe.splice(index, 1);
+    },
+    sendToBuy() {
+      let dup = [];
+      for (let i = 0; i < this.recipe.length; i++) {
+        dup[i] = {
+          name: this.recipe[i].name,
+          size: this.recipe[i].size,
+          unit: this.recipe[i].unit,
+          edit: this.recipe[i].edit,
+          price: this.recipe[i].price
+        }
+        console.log(dup[0].name + ' xxx ' + this.recipe[0].name);
+      }
+      this.$emit('send-to-buy', dup);
     }
   }
 }

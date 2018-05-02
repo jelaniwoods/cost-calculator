@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <List :recipe='recipe'> </List>
+    <List :recipe='recipe' v-on:send-to-buy="sendToBuy"> </List>
     <CreateIngredient v-on:create-ingredient="createIngredient"/>
     <Buylist :buylist='buylist'> </Buylist>
     <Converter />
@@ -42,6 +42,14 @@ export default {
         this.recipe.push(newIngredient);
       }
       console.log('new: ' + newIngredient.buylist);
+    },
+    sendToBuy(dup) {
+      console.log(dup[0].name + ' - ');
+      this.buylist = [];
+      for (let i = 0; i < dup.length; i++) {
+        console.log(dup[i].name + ' - ');
+        this.buylist.push(dup[i]);
+      }
     },
     calcRatio(recipe, buylist) {
       /**

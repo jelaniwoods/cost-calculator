@@ -7,11 +7,12 @@
       <select v-model="item.unit">
           <option value="ts"> ts</option>
           <option value="tbs"> tbs </option>
+          <option value="floz"> fluid oz</option>
           <option value="oz"> oz</option>
           <option value="4cup"> 1/4 cup</option>
           <option value="3cup"> 1/3 cup</option>
           <option value="2cup"> 1/2 cup</option>
-          <option value="cup"> 1 cup</option>
+          <option value="cup"> cup</option>
       </select>
       <label>New Unit</label>
       <select v-model="item.newUnit" >
@@ -44,26 +45,31 @@ export default {
                     item.unit = 'ml';
                     break; 
                 case "tbs":
-                    item.newAmount = item.amount * 5;
+                    item.newAmount = item.amount * 15;
+                    item.unit = 'ml';
+                    break; 
+                case "floz":
+                    item.newAmount = item.amount * 30;
                     item.unit = 'ml';
                     break; 
                 case "oz":
-                    item.newAmount = item.amount * 5;
-                    item.unit = 'ml';
+                    item.newAmount = item.amount * 28;
+                    item.unit = 'g';
                     break; 
                 case "4cup":
-                    item.newAmount = item.amount * 5;
+                    item.newAmount = item.amount * 60;
                     item.unit = 'ml';
                     break;
                 case "3cup":
-                    item.newAmount = item.amount * 5;
+                    item.newAmount = item.amount * 80;
                     item.unit = 'ml';
                     break;
                 case "2cup":
-                    item.newAmount = item.amount * 5;
+                    item.newAmount = item.amount * 120;
                     item.unit = 'ml';
                     break;
                 case "cup":
+                    item.newAmount = item.amount * 240;
                     item.unit = 'ml'
                     break;
                 default: 
@@ -76,7 +82,7 @@ export default {
                 break; 
                 case "tbs":
                 break; 
-                case "oz":
+                case "floz":
                 break; 
                 case "4cup":
                 break; 
