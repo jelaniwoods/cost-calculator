@@ -10,7 +10,6 @@
           v-if="item.edit" ref='search' v-focus 
           v-on:keyup.enter="disableEdit(index)" 
           v-on:blur="disableEdit(index)"> -->
-
       <p class="size">
           <span v-if="!ingredient.edit"> 
               {{ingredient.size}} {{ingredient.unit}} 
@@ -32,10 +31,8 @@ export default {
         return {
         };
     },
-    methods: {
-      
-  }
-
+    methods: {  
+    }
 }
 </script>
 
@@ -49,4 +46,3 @@ export default {
         background: #1e1e1e;
     }
 </style>
-

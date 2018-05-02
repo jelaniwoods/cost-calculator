@@ -6,6 +6,13 @@
     <Buylist :buylist='buylist'> </Buylist>
     <Converter />
     <button @click='calcRatio(recipe, buylist)'>Servings</button>
+    <div v-if="reaveal">
+      <div v-for="ingredient in this.ratios" :key="ingredient.name">
+        <p>
+          You have enough {{ingredient.name}} to make {{ingredient.ratio}} amount of recipe.
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -27,31 +34,40 @@ export default {
     Buylist,
     List
   },
-  data() {
+  data () {
     return {
       recipe: [],
-      buylist: []
+      buylist: [],
+      ratios: [],
+      reaveal: false
     };
   },
   methods: {
-    createIngredient(newIngredient) {
+    createIngredient (newIngredient) {
       if (newIngredient.buylist) {
         this.buylist.push(newIngredient);
-      }
-      else {
+      } else {
         this.recipe.push(newIngredient);
       }
       console.log('new: ' + newIngredient.buylist);
     },
-    sendToBuy(dup) {
+    sendToBuy (dup) {
       console.log(dup[0].name + ' - ');
       this.buylist = [];
       for (let i = 0; i < dup.length; i++) {
-        console.log(dup[i].name + ' - ' +dup[i].price);
+        console.log(dup[i].name + ' - ' + dup[i].price);
         this.buylist.push(dup[i]);
       }
     },
-    calcRatio(recipe, buylist) {
+    calcRatio (recipe, buylist) {
+      this.reaveal = true
+      this.ratios = []
+      for (let i = 0; i < recipe.length; i++) {
+        let temp = {}
+        temp.name = buylist[i].name
+        temp.ratio = buylist[i].size / recipe[i].size;
+        this.ratios.push(temp)
+      }
       /**
       take each matching ingredient from both lists
         divide buylist one from recipe one to get 
@@ -63,16 +79,16 @@ export default {
             x amount of eggs can make y amount of recipe                                                      
             b amount of flour can make c amount of recipe
        */
-      console.log(recipe.length);
-      let newlist = {};
-      let temp = 0;
+      console.log(recipe.length)
+      let newlist = {}
+      let temp = 0
       for (let key in recipe) {
-        if(recipe.hasOwnProperty(key)) {
-          console.log(key + '- ' + recipe[key].name );
+        if (recipe.hasOwnProperty(key)) {
+          console.log(key + '- ' + recipe[key].name)
           temp = buylist[key].size / recipe[key].size;
           newlist[key] = {
             name: recipe[key].name,
-            size: temp,
+            size: temp
           }
         }
       }

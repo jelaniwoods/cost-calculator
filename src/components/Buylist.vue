@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="list" v-if='buylist.length'>
         <ul>
-            <li v-for="(ingredient, index) in buylist" @click="enableEdit(index)" @blur="disableEdit(index)">
+            <li v-for="(ingredient, index) in buylist" :key="ingredient.name" @click="enableEdit(index)" @blur="disableEdit(index)">
                 <div class="ingredient">
                 <span v-if="!ingredient.edit">
                     {{ingredient.name}}
@@ -60,7 +60,7 @@ export default {
       this.buylist.splice(index, 1);
     },
     isReady(buylist) {
-        for(let i = 0; i < buylist.length; i++) {
+        for (let i = 0; i < buylist.length; i++) {
             // console.log(isNaN(buylist[i].price)  + '-' + buylist[i].price.length);
             if (buylist[i].price == null || isNaN(buylist[i].price) || buylist[i].price.length == 0)
                 return false;
@@ -74,13 +74,13 @@ export default {
             this.ready = false;
             console.log(this.ready + 'should be error');
         } else {
-            this.ready = true;
-            let total = 0;
-            for (let i = 0; i < buylist.length; i++) {
-                total += parseInt(buylist[i].price);
-            }
-            this.sum = total;
+        this.ready = true;
+        let total = 0;
+        for (let i = 0; i < buylist.length; i++) {
+          total += parseInt(buylist[i].price)
         }
+        this.sum = total
+      }
     }
   }
 }
