@@ -14,10 +14,12 @@
     </div>
     <div class="buylist">
       <h2>Buy List</h2>
-      <Buylist :buylist='buylist'> </Buylist>
-      <button @click='calcRatio(recipe, buylist)'>Servings</button>
+      <Buylist :buylist='buylist' v-on:get-sum='getSum'> </Buylist>
+      <button @click='calcRatio(recipe, buylist)' v-if="buylist.length">Servings</button>
       <div v-if="reaveal">
         <h4>You have enough ingredients to make at most {{this.min}} recipe.</h4>
+        <h4>The total cost of ingredients is: {{this.sum}}</h4>
+        <h5>The price per recipe is: {{this.sum}}/{{this.min}} = {{this.ppr}}</h5>
         <div v-for="ingredient in this.ratios" :key="ingredient.name">
           <p>
             You have enough {{ingredient.name}} to make {{ingredient.ratio}} amount of recipe.
@@ -52,7 +54,9 @@ export default {
       buylist: [],
       ratios: [],
       min: null,
-      reaveal: false
+      reaveal: false,
+      sum: 0,
+      ppr: 0
     };
   },
   methods: {
@@ -72,7 +76,17 @@ export default {
         this.buylist.push(dup[i]);
       }
     },
+    getSum(total) {
+        // let total = 0;
+        // for (let i = 0; i < buylist.length; i++) {
+        //   total += parseInt(buylist[i].price)
+        // }
+        // console.log(total)
+        console.log(total.total)
+        this.sum = total.total
+    },
     calcRatio (recipe, buylist) {
+      // this.getSum();
       this.reaveal = true
       this.ratios = []
       let temp_arr = []
@@ -84,6 +98,7 @@ export default {
         temp_arr.push(temp.ratio)
       }
       this.min = parseFloat(Math.round(Math.min(...temp_arr) * 100) / 100).toFixed(2)
+      this.ppr = parseFloat(this.sum/this.min).toFixed(2)
     }
   }
 }
@@ -92,7 +107,7 @@ export default {
 <style scoped>
 
   .title {
-    background-color: azure;
+    background-color: rgb(136, 204, 204);
     grid-row: 1;
   }
   .create {
@@ -106,10 +121,10 @@ export default {
     grid-template-rows: 1fr 1fr;
   }
   .recipe {
-    background-color: #fff;
+    background-color: rgba(255, 68, 0, 0.527);
   }
   .buylist {
-    background-color: #fff;
+    background-color: rgba(53, 60, 155, 0.616);
   }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

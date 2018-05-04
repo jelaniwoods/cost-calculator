@@ -1,9 +1,12 @@
 <template lang="html">
   <div class="create-ingredient">
-    <div>
+    <div class='input'>
+      <div class='inps'>
         <label>Name</label>
         <input v-model="name" type='text'>
         <br/>
+      </div>
+      <div class='inps selector'>
         <label>Size (Select Units)</label>
         <input v-model="size" type='text'>
         <select v-model="unit">
@@ -13,16 +16,24 @@
             <option value="g">g</option>
         </select>
         <br/>
+      </div>
+      <div class='inps'>
         <label>Price</label>
         <input v-model="price" type='text'>
         <br/>
+      </div>
+      <div class='inps'>
         <input v-model="buylist" type='checkbox'> Put this on BuyList
         <br/>
-        <button v-on:click="sendForm" class="">
+      </div>
+        <button v-on:click="sendForm" class="addButt">
           Add To Recipe
         </button>
-        
     </div>
+    <p>Notes: for ingredients like eggs, or bread slices that have their own
+      unique units you can choose any unit and just make sure the proportions are correct.
+      (2ml of eggs in recipe and 12ml in buylist if the recipe requires 2 eggs and you buy a dozen at a time)
+    </p>
   </div>
 </template>
 <script>
@@ -76,6 +87,37 @@ export default {
 </script>
 
 <style lang="css" scoped>
+  .input {
+    border: 1px solid orange;
+    padding: 1em;
+    background-color: aliceblue;
+  }
+  .selector {
+    
+  }
+select {
+    box-shadow: 2px 2px 0 #828181 inset;
+    background-color: rgb(255, 255, 255);
+    height: 28px;
+    border-radius:5px;
+    color: #1b1b1b;
+    border: 0;
 
+}
+input[type=text]
+{
+    background-color: rgb(255, 255, 255);
+    border:solid 1px rgb(255, 255, 255);
+    color: #1b1b1b;
+    border: 0;
+    border-radius:5px;
+    height: 28px;
+    padding-left:10px;
+    width: 191px;
+    box-shadow: 2px 2px 0 #828181 inset;
+}
+  .inps {
+    padding-bottom: .5em;
+  }
 </style>
 

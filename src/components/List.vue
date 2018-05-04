@@ -5,6 +5,8 @@
         <ul v-if='recipe.length'> 
           <li v-for="(ingredient, index) in recipe" @click="enableEdit(index)" @blur="disableEdit(index)">
             <div class="ingredient">
+              <button class="butts" @click="deleteIngredient(index)">X</button>
+              <br>
               <span v-if="!ingredient.edit">
                 {{ingredient.name}}
               </span>
@@ -27,7 +29,6 @@
                   </span>
                   <input v-if="ingredient.edit" v-model="ingredient.price" >
               </p>
-              <button @click="deleteIngredient(index)">X</button>
             </div>
             <!-- <Ingredient :ingredient.sync="ingredient" /> -->
           </li>
@@ -85,12 +86,20 @@ export default {
    width: 300px;
    margin: 0 auto;
    list-style: none;
+   text-align: center;
   }
   .ingredient {
-   background-color: #1e1e1e;
+   background-color: #777;
    color: aliceblue; 
+   position: relative;
+   padding: 1em;
   }
   .ingredient li {
     text-decoration: none;
+  }
+  .butts {
+     position:absolute;
+     top:0;
+     right:0;
   }
 </style>

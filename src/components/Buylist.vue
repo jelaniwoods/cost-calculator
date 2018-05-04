@@ -3,6 +3,7 @@
         <ul>
             <li v-for="(ingredient, index) in buylist" :key="ingredient.name" @click="enableEdit(index)">
                 <div class="ingredient">
+                <button class='butts' @click="deleteIngredient(index)">X</button>
                 <span v-if="!ingredient.edit">
                     {{ingredient.name}}
                 </span>
@@ -25,7 +26,6 @@
                     </span>
                     <input v-if="ingredient.edit" v-model="ingredient.price" @blur="disableEdit(index)">
                 </p>
-                <button @click="deleteIngredient(index)">X</button>
                 </div>
             </li>
         </ul>
@@ -80,6 +80,9 @@ export default {
           total += parseInt(buylist[i].price)
         }
         this.sum = total
+        this.$emit('get-sum', {
+            total: total
+        });
       }
     }
   }
@@ -92,4 +95,15 @@ export default {
         background-color: #999;
         list-style: none;
     }
+  .ingredient {
+   background-color: #777;
+   color: aliceblue; 
+   position: relative;
+   padding: 1em;
+  }
+  .butts {
+     position:absolute;
+     top:0;
+     right:0;
+  }
 </style>
