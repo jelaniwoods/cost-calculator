@@ -9,10 +9,10 @@
                 </span>
                 <input v-if="ingredient.edit" v-model="ingredient.name" @blur="disableEdit(index)">
                 <p class="size">
-                    <span v-if="!ingredient.edit"> 
-                        {{ingredient.size}} {{ingredient.unit}} 
+                    <span v-if="!ingredient.edit">
+                        {{ingredient.size}} {{ingredient.unit}}
                     </span>
-                    <input v-if="ingredient.edit" v-model="ingredient.size"  @blur="disableEdit(index)"> 
+                    <input v-if="ingredient.edit" v-model="ingredient.size"  @blur="disableEdit(index)">
                     <select v-if="ingredient.edit" v-model="ingredient.unit" @blur="disableEdit(index)">
                         <option value="l">liter</option>
                         <option value="ml">ml</option>
@@ -21,7 +21,7 @@
                     </select>
                 </p>
                 <p class="price" v-if='ingredient.buylist'>
-                    <span v-if="!ingredient.edit"> 
+                    <span v-if="!ingredient.edit">
                         ${{ingredient.price}}
                     </span>
                     <input v-if="ingredient.edit" v-model="ingredient.price" @blur="disableEdit(index)">
@@ -37,52 +37,49 @@
     </div>
 </template>
 <script>
-import Ingredient from './Ingredient';
 export default {
   props: ['buylist'],
-  components: {
-    Ingredient
-  },
   data () {
     return {
-        sum: null,
-        ready: true
+      sum: null,
+      ready: true
     }
   },
   methods: {
-    enableEdit(index) {
-      this.buylist[index].edit = true;
+    enableEdit (index) {
+      this.buylist[index].edit = true
     },
-    disableEdit(index) {
-      this.buylist[index].edit = false;
+    disableEdit (index) {
+      this.buylist[index].edit = false
     },
-    deleteIngredient(index) {
-      this.buylist.splice(index, 1);
+    deleteIngredient (index) {
+      this.buylist.splice(index, 1)
     },
-    isReady(buylist) {
-        for (let i = 0; i < buylist.length; i++) {
-            // console.log(isNaN(buylist[i].price)  + '-' + buylist[i].price.length);
-            if (buylist[i].price == null || isNaN(buylist[i].price) || buylist[i].price.length == 0)
-                return false;
+    isReady (buylist) {
+      for (let i = 0; i < buylist.length; i++) {
+        // console.log(isNaN(buylist[i].price)  + '-' + buylist[i].price.length);
+        if (buylist[i].price === null || isNaN(buylist[i].price) || buylist[i].price.length === 0) {
+          return false
         }
-        console.log('um so we good?');
-        return true;
+      }
+      console.log('um so we good?')
+      return true
     },
-    calc(buylist) {
-        console.log('hewwo ' + this.ready);
-        if (!this.isReady(buylist)) {
-            this.ready = false;
-            console.log(this.ready + 'should be error');
-        } else {
-        this.ready = true;
-        let total = 0;
+    calc (buylist) {
+      console.log('hewwo ' + this.ready)
+      if (!this.isReady(buylist)) {
+        this.ready = false
+        console.log(this.ready + 'should be error')
+      } else {
+        this.ready = true
+        let total = 0
         for (let i = 0; i < buylist.length; i++) {
           total += parseInt(buylist[i].price)
         }
         this.sum = total
         this.$emit('get-sum', {
-            total: total
-        });
+          total: total
+        })
       }
     }
   }
@@ -97,7 +94,7 @@ export default {
     }
   .ingredient {
    background-color: #777;
-   color: aliceblue; 
+   color: aliceblue;
    position: relative;
    padding: 1em;
   }

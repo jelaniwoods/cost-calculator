@@ -19,7 +19,7 @@
       <div v-if="reaveal">
         <h4>You have enough ingredients to make at most {{this.min}} recipe.</h4>
         <h4>The total cost of ingredients is: {{this.sum}}</h4>
-        <h5>The price per recipe is: {{this.sum}}/{{this.min}} = {{this.ppr}}</h5>
+        <h5>The price per recipe is: {{this.ppr}}</h5>
         <div v-for="ingredient in this.ratios" :key="ingredient.name">
           <p>
             You have enough {{ingredient.name}} to make {{ingredient.ratio}} amount of recipe.
@@ -57,48 +57,43 @@ export default {
       reaveal: false,
       sum: 0,
       ppr: 0
-    };
+    }
   },
   methods: {
     createIngredient (newIngredient) {
       if (newIngredient.buylist) {
-        this.buylist.push(newIngredient);
+        this.buylist.push(newIngredient)
       } else {
-        this.recipe.push(newIngredient);
+        this.recipe.push(newIngredient)
       }
-      console.log('new: ' + newIngredient.buylist);
+      console.log('new: ' + newIngredient.buylist)
     },
     sendToBuy (dup) {
-      console.log(dup[0].name + ' - ');
-      this.buylist = [];
+      console.log(dup[0].name + ' - ')
+      this.buylist = []
       for (let i = 0; i < dup.length; i++) {
-        console.log(dup[i].name + ' - ' + dup[i].price);
-        this.buylist.push(dup[i]);
+        console.log(dup[i].name + ' - ' + dup[i].price)
+        this.buylist.push(dup[i])
       }
     },
-    getSum(total) {
-        // let total = 0;
-        // for (let i = 0; i < buylist.length; i++) {
-        //   total += parseInt(buylist[i].price)
-        // }
-        // console.log(total)
-        console.log(total.total)
-        this.sum = total.total
+    getSum (total) {
+      console.log(total.total)
+      this.sum = total.total
     },
     calcRatio (recipe, buylist) {
       // this.getSum();
       this.reaveal = true
       this.ratios = []
-      let temp_arr = []
+      let tempArr = []
       for (let i = 0; i < recipe.length; i++) {
         let temp = {}
         temp.name = buylist[i].name
-        temp.ratio = buylist[i].size / recipe[i].size;
+        temp.ratio = buylist[i].size / recipe[i].size
         this.ratios.push(temp)
-        temp_arr.push(temp.ratio)
+        tempArr.push(temp.ratio)
       }
-      this.min = parseFloat(Math.round(Math.min(...temp_arr) * 100) / 100).toFixed(2)
-      this.ppr = parseFloat(this.sum/this.min).toFixed(2)
+      this.min = parseFloat(Math.round(Math.min(...tempArr) * 100) / 100).toFixed(2)
+      this.ppr = parseFloat(this.sum / this.min).toFixed(2)
     }
   }
 }

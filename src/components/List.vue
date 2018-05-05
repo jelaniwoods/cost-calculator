@@ -1,8 +1,8 @@
 <template lang="html">
   <div>
 
-      <div class="list" >
-        <ul v-if='recipe.length'> 
+      <div class="list">
+        <ul v-if='recipe.length'>
           <li v-for="(ingredient, index) in recipe" @click="enableEdit(index)" @blur="disableEdit(index)">
             <div class="ingredient">
               <button class="butts" @click="deleteIngredient(index)">X</button>
@@ -10,12 +10,12 @@
               <span v-if="!ingredient.edit">
                 {{ingredient.name}}
               </span>
-              <input v-if="ingredient.edit" v-model="ingredient.name" >
+              <input v-if="ingredient.edit" v-model="ingredient.name">
               <p class="size">
-                  <span v-if="!ingredient.edit"> 
-                      {{ingredient.size}} {{ingredient.unit}} 
+                  <span v-if="!ingredient.edit">
+                      {{ingredient.size}} {{ingredient.unit}}
                   </span>
-                  <input v-if="ingredient.edit" v-model="ingredient.size" @keyup.enter="disableEdit(index)" @blur="disableEdit(index)"> 
+                  <input v-if="ingredient.edit" v-model="ingredient.size" @keyup.enter="disableEdit(index)" @blur="disableEdit(index)">
                   <select v-if="ingredient.edit" v-model="ingredient.unit" @blur="disableEdit(index)">
                       <option value="l">liter</option>
                       <option value="ml">ml</option>
@@ -24,13 +24,12 @@
                   </select>
               </p>
               <p class="price" v-if='ingredient.buylist'>
-                  <span v-if="!ingredient.edit"> 
+                  <span v-if="!ingredient.edit">
                     ${{ingredient.price}}
                   </span>
-                  <input v-if="ingredient.edit" v-model="ingredient.price" >
+                  <input v-if="ingredient.edit" v-model="ingredient.price">
               </p>
             </div>
-            <!-- <Ingredient :ingredient.sync="ingredient" /> -->
           </li>
         </ul>
       </div>
@@ -38,33 +37,20 @@
   </div>
 </template>
 <script>
-import Ingredient from './Ingredient';
 export default {
   props: ['recipe'],
-  components: {
-    Ingredient
-  },
-  data () {
-    return {
-    }
-  },
   methods: {
-    /** make a way to take ingredient directly from recipe and duplicate 
-    it to the buylist, minus price. 
-      either make all values in the create form or make duplicate
-      in buylist but in edit state focused on price
-     */
-    enableEdit(index) {
-      this.recipe[index].edit = true;
+    enableEdit (index) {
+      this.recipe[index].edit = true
     },
-    disableEdit(index) {
-      this.recipe[index].edit = false;
+    disableEdit (index) {
+      this.recipe[index].edit = false
     },
-    deleteIngredient(index) {
-      this.recipe.splice(index, 1);
+    deleteIngredient (index) {
+      this.recipe.splice(index, 1)
     },
-    sendToBuy() {
-      let dup = [];
+    sendToBuy () {
+      let dup = []
       for (let i = 0; i < this.recipe.length; i++) {
         dup[i] = {
           name: this.recipe[i].name,
@@ -72,11 +58,11 @@ export default {
           unit: this.recipe[i].unit,
           edit: this.recipe[i].edit,
           price: this.recipe[i].price,
-          buylist: true 
+          buylist: true
         }
-        console.log(dup[0].name + ' xxx ' + this.recipe[0].name);
+        console.log(dup[0].name + ' xxx ' + this.recipe[0].name)
       }
-      this.$emit('send-to-buy', dup);
+      this.$emit('send-to-buy', dup)
     }
   }
 }
@@ -90,7 +76,7 @@ export default {
   }
   .ingredient {
    background-color: #777;
-   color: aliceblue; 
+   color: aliceblue;
    position: relative;
    padding: 1em;
   }

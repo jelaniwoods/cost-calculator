@@ -40,60 +40,54 @@
 export default {
   data () {
     return {
-        name: "",
-        size: null,
-        unit: null,
-        price: null,
-        buylist: false
+      name: '',
+      size: null,
+      unit: null,
+      price: null,
+      buylist: false
     }
   },
   methods: {
-    sendForm() {
+    sendForm () {
       if (this.name.length > 0 && this.size > 0) {
-        const name = this.name;
-        const size = this.size;
-        const unit = this.unit;
-        const price = this.price;
-        const buylist = this.buylist;
+        const name = this.name
+        const size = this.size
+        const unit = this.unit
+        const price = this.price
+        const buylist = this.buylist
         if (buylist) {
-            this.$emit('create-ingredient', {
-              name: this.name,
-              size: this.size,
-              unit: this.unit,
-              price: this.price,
-              edit: false,
-              buylist: true
-            });
+          this.$emit('create-ingredient', {
+            name: this.name,
+            size: this.size,
+            unit: this.unit,
+            price: this.price,
+            edit: false,
+            buylist: true
+          })
+        } else {
+          this.$emit('create-ingredient', {
+            name: this.name,
+            unit: this.unit,
+            size: this.size,
+            edit: false,
+            price: this.price
+          })
         }
-        else {
-            this.$emit('create-ingredient', {
-              name: this.name,
-              unit: this.unit,
-              size: this.size,
-              edit: false,
-              price: this.price
-            });
-        }
-        this.name = null;
-        this.size = null;
-        this.unit = null;
-        this.price = null;
-        this.buylist = false;
-      } 
-    } 
+        this.name = null
+        this.size = null
+        this.unit = null
+        this.price = null
+        this.buylist = false
+      }
+    }
   }
-
 }
 </script>
-
 <style lang="css" scoped>
   .input {
     border: 1px solid orange;
     padding: 1em;
     background-color: aliceblue;
-  }
-  .selector {
-    
   }
 select {
     box-shadow: 2px 2px 0 #828181 inset;
@@ -120,4 +114,3 @@ input[type=text]
     padding-bottom: .5em;
   }
 </style>
-
