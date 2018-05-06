@@ -2,18 +2,25 @@
   <div class="create-ingredient">
     <div class='input'>
       <div class='inps'>
+        <br/>
         <label>Name</label>
         <input v-model="name" type='text'>
+        <button @click="switchUnits">Units {{this.use}}</button>
         <br/>
       </div>
       <div class='inps selector'>
         <label>Size (Select Units)</label>
         <input v-model="size" type='text'>
-        <select v-model="unit">
+        <select v-model="unit" v-if='this.use == "metric"'>
             <option value="l">liter</option>
             <option value="ml">ml</option>
             <option value="kg">kg</option>
             <option value="g">g</option>
+        </select>
+        <select v-model="unit" v-else-if='this.use == "US"'>
+            <option value="ts">ts</option>
+            <option value="tbs">tbs</option>
+            <option value="cup">cup(s)</option>
         </select>
         <br/>
       </div>
@@ -32,7 +39,7 @@
     </div>
     <p>Notes: for ingredients like eggs, or bread slices that have their own
       unique units you can choose any unit and just make sure the proportions are correct.
-      (2ml of eggs in recipe and 12ml in buylist if the recipe requires 2 eggs and you buy a dozen at a time)
+      (2ts of eggs in recipe and 12ts in buylist if the recipe requires 2 eggs and you buy a dozen at a time)
     </p>
   </div>
 </template>
@@ -44,7 +51,8 @@ export default {
       size: null,
       unit: null,
       price: null,
-      buylist: false
+      buylist: false,
+      use: 'US'
     }
   },
   methods: {
@@ -78,6 +86,15 @@ export default {
         this.unit = null
         this.price = null
         this.buylist = false
+      }
+    },
+    switchUnits () {
+      if (this.use === 'US') {
+        this.use = 'metric'
+        console.log('to metric')
+      } else if (this.use === 'metric') {
+        this.use = 'US'
+        console.log('to US ' + this.use)
       }
     }
   }

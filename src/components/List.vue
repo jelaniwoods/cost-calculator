@@ -7,7 +7,7 @@
             <div class="ingredient">
               <button class="butts" @click="deleteIngredient(index)">X</button>
               <br>
-              <span v-if="!ingredient.edit">
+              <span v-if="!ingredient.edit" class='name'>
                 {{ingredient.name}}
               </span>
               <input v-if="ingredient.edit" v-model="ingredient.name">
@@ -22,12 +22,6 @@
                       <option value="kg">kg</option>
                       <option value="g">g</option>
                   </select>
-              </p>
-              <p class="price" v-if='ingredient.buylist'>
-                  <span v-if="!ingredient.edit">
-                    ${{ingredient.price}}
-                  </span>
-                  <input v-if="ingredient.edit" v-model="ingredient.price">
               </p>
             </div>
           </li>
@@ -73,9 +67,26 @@ export default {
    margin: 0 auto;
    list-style: none;
    text-align: center;
+   margin-bottom: 1em;
+  }
+  .size {
+    display: inline;
+    padding-left: 2em;
+  }
+  .name {
+    display: inline;
+    padding-left: 2em;
+  }
+  .edit {
+    display: inline;
+    padding-left: 2em;  
+  }
+  .price {
+    display: inline;
+    padding-left: 2em;
   }
   .ingredient {
-   background-color: #777;
+   background-color: rgba(122, 102, 102, 0.356);
    color: aliceblue;
    position: relative;
    padding: 1em;

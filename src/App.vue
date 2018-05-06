@@ -18,8 +18,8 @@
       <button @click='calcRatio(recipe, buylist)' v-if="buylist.length">Servings</button>
       <div v-if="reaveal">
         <h4>You have enough ingredients to make at most {{this.min}} recipe.</h4>
-        <h4>The total cost of ingredients is: {{this.sum}}</h4>
-        <h5>The price per recipe is: {{this.ppr}}</h5>
+        <h4>The total cost of ingredients is: ${{this.sum}}</h4>
+        <h5>The price per recipe is: ${{this.ppr}}</h5>
         <div v-for="ingredient in this.ratios" :key="ingredient.name">
           <p>
             You have enough {{ingredient.name}} to make {{ingredient.ratio}} amount of recipe.
